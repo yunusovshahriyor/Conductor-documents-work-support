@@ -13,7 +13,9 @@ export type IconName =
   | "alert"
   | "download"
   | "back"
-  | "close";
+  | "close"
+  | "chevron"
+  | "info";
 
 const paths: Record<IconName, ReactElement> = {
   home: <path d="M3 11.5 12 4l9 7.5M5.5 10v9.5h13V10M10 19.5v-5h4v5" />,
@@ -29,6 +31,8 @@ const paths: Record<IconName, ReactElement> = {
   download: <path d="M12 4v11M7.5 11 12 15.5 16.5 11M5 20h14" />,
   back: <path d="M15 5l-7 7 7 7" />,
   close: <path d="M6 6l12 12M18 6 6 18" />,
+  chevron: <path d="M9 5l7 7-7 7" />,
+  info: <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 11v6M12 7.5v.5" />,
 };
 
 export function Icon({ name, size = 24 }: { name: IconName; size?: number }) {

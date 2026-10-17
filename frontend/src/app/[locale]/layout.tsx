@@ -7,6 +7,7 @@ import { AppBar } from "@/components/AppBar";
 import { Nav } from "@/components/Nav";
 import { OfflineBadge } from "@/components/OfflineBadge";
 import { SosButton } from "@/components/SosButton";
+import { Ripple } from "@/components/Ripple";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { isLocale, locales } from "@/i18n/config";
 import { getMessages } from "@/i18n/dictionary";
@@ -36,8 +37,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#0f5e5a" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b1f1e" },
+    { media: "(prefers-color-scheme: light)", color: "#f8faf8" },
+    { media: "(prefers-color-scheme: dark)", color: "#101413" },
   ],
 };
 
@@ -81,6 +82,7 @@ export default async function LocaleLayout({
           dismissLabel={t.common.dismiss}
         />
         <SosButton label={t.common.callEmergency} />
+        <Ripple />
         <ServiceWorkerRegister />
       </body>
     </html>
