@@ -1,0 +1,91 @@
+import type { Metadata, Viewport } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { ReactNode } from "react";
+import { InstallPrompt } from "@/components/InstallPrompt";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { Nav } from "@/components/Nav";
+import { OfflineBadge } from "@/components/OfflineBadge";
+import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
+import { isLocale, locales } from "@/i18n/config";
+import { getMessages } from "@/i18n/dictionary";
+import "../globals.css";
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const t = getMessages(locale);
+  return {
+    title: { default: t.app.fullName, template: `%s · ${t.app.name}` },
+    description: t.app.tagline,
+    manifest: "/manifest.webmanifest",
+    applicationName: t.app.name,
+    appleWebApp: { capable: true, title: t.app.name, statusBarStyle: "default" },
+    icons: { icon: "/icons/icon.svg", apple: "/icons/apple-touch-icon.png" },
+    formatDetection: { telephone: false },
+  };
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#0f5e5a" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b1f1e" },
+  ],
+};
+
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  const t = getMessages(locale);
+
+  return (
+    <html lang={locale}>
+      <body>
+        <header className="header">
+          <div className="container header__inner">
+            <Link href={`/${locale}`} className="brand" aria-label={t.app.fullName}>
+              <span className="brand__mark" aria-hidden="true">П</span>
+              <span className="brand__text">{t.app.name}</span>
+            </Link>
+            <LanguageSwitcher current={locale} label={t.nav.language} />
+          </div>
+          <div className="header__nav">
+            <div className="container">
+              <Nav locale={locale} labels={t.nav} menuLabel={t.nav.menu} />
+            </div>
+          </div>
+        </header>
+
+        <OfflineBadge label={t.common.offlineBadge} />
+        <main className="container main">{children}</main>
+
+        <footer className="container footer">
+          <p>{t.common.verifyBanner}</p>
+          <p>
+            <Link href={`/${locale}/about`}>{t.nav.about}</Link>
+          </p>
+        </footer>
+
+        <InstallPrompt
+          title={t.common.installTitle}
+          text={t.common.installText}
+          installLabel={t.common.installButton}
+          dismissLabel={t.common.dismiss}
+        />
+        <ServiceWorkerRegister />
+      </body>
+    </html>
+  );
+}
