@@ -11,7 +11,9 @@ export type IconName =
   | "shield"
   | "check"
   | "alert"
-  | "download";
+  | "download"
+  | "back"
+  | "close";
 
 const paths: Record<IconName, ReactElement> = {
   home: <path d="M3 11.5 12 4l9 7.5M5.5 10v9.5h13V10M10 19.5v-5h4v5" />,
@@ -25,6 +27,8 @@ const paths: Record<IconName, ReactElement> = {
   check: <path d="M5 12.5l4.5 4.5L19 7.5" />,
   alert: <path d="M12 4l10 17H2zM12 10v5M12 18v.5" />,
   download: <path d="M12 4v11M7.5 11 12 15.5 16.5 11M5 20h14" />,
+  back: <path d="M15 5l-7 7 7 7" />,
+  close: <path d="M6 6l12 12M18 6 6 18" />,
 };
 
 export function Icon({ name, size = 24 }: { name: IconName; size?: number }) {

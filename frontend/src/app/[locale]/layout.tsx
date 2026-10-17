@@ -3,9 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { InstallPrompt } from "@/components/InstallPrompt";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { AppBar } from "@/components/AppBar";
 import { Nav } from "@/components/Nav";
 import { OfflineBadge } from "@/components/OfflineBadge";
+import { SosButton } from "@/components/SosButton";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { isLocale, locales } from "@/i18n/config";
 import { getMessages } from "@/i18n/dictionary";
@@ -33,6 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#0f5e5a" },
     { media: "(prefers-color-scheme: dark)", color: "#0b1f1e" },
@@ -54,13 +56,7 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body>
         <header className="header">
-          <div className="container header__inner">
-            <Link href={`/${locale}`} className="brand" aria-label={t.app.fullName}>
-              <span className="brand__mark" aria-hidden="true">П</span>
-              <span className="brand__text">{t.app.name}</span>
-            </Link>
-            <LanguageSwitcher current={locale} label={t.nav.language} />
-          </div>
+          <AppBar locale={locale} t={t} />
           <div className="header__nav">
             <div className="container">
               <Nav locale={locale} labels={t.nav} menuLabel={t.nav.menu} />
@@ -69,7 +65,7 @@ export default async function LocaleLayout({
         </header>
 
         <OfflineBadge label={t.common.offlineBadge} />
-        <main className="container main">{children}</main>
+        <main className="container main" id="main">{children}</main>
 
         <footer className="container footer">
           <p>{t.common.verifyBanner}</p>
@@ -84,6 +80,7 @@ export default async function LocaleLayout({
           installLabel={t.common.installButton}
           dismissLabel={t.common.dismiss}
         />
+        <SosButton label={t.common.callEmergency} />
         <ServiceWorkerRegister />
       </body>
     </html>
