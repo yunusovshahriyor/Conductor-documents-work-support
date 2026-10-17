@@ -7,6 +7,7 @@ import { AppBar } from "@/components/AppBar";
 import { Nav } from "@/components/Nav";
 import { OfflineBadge } from "@/components/OfflineBadge";
 import { SosButton } from "@/components/SosButton";
+import { PullToRefresh } from "@/components/PullToRefresh";
 import { Ripple } from "@/components/Ripple";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { isLocale, locales } from "@/i18n/config";
@@ -83,6 +84,7 @@ export default async function LocaleLayout({
           dismissLabel={t.common.dismiss}
         />
         <SosButton label={t.common.callEmergency} />
+        <PullToRefresh label={t.common.refreshing} />
         <Ripple />
         <ServiceWorkerRegister />
       </body>

@@ -116,7 +116,7 @@ ul, ol { margin: 0; }
 .header__nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: var(--container); padding-bottom: env(safe-area-inset-bottom); }
 .nav ul { list-style: none; padding: 0; display: flex; height: var(--nav-h); }
 .nav li { flex: 1; min-width: 0; }
-.nav__link { position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; height: 100%; padding: 0 2px; color: var(--muted); text-decoration: none; font-size: .75rem; line-height: 1rem; font-weight: 500; text-align: center; }
+.nav__link { position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; height: 100%; padding: 0 2px; color: var(--muted); text-decoration: none; font-size: .6875rem; letter-spacing: 0; line-height: 1rem; font-weight: 500; text-align: center; }
 .nav__link svg { box-sizing: content-box; width: 24px; height: 24px; padding: 4px 20px; border-radius: 16px; transition: background .2s ease; }
 .nav__link span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .nav__link[aria-current="page"] { color: var(--text); font-weight: 700; }
@@ -154,7 +154,7 @@ ul, ol { margin: 0; }
 .callout--soon { background: transparent; border: 1px dashed var(--outline-variant); }
 .checklist { list-style: none; padding-left: 0 !important; }
 .checklist li { display: flex; gap: 8px; align-items: flex-start; }
-.checklist svg { flex: none; margin-top: 2px; color: var(--primary); }
+.checklist svg { flex: none; margin-top: 2px; color: var(--primary); width: 18px; height: 18px; }
 .links { list-style: none; padding: 0 !important; display: flex; flex-wrap: wrap; gap: 4px 20px; }
 .links a { font-weight: 500; }
 .callout .btn { margin-top: 4px; }
@@ -264,3 +264,13 @@ legend { padding: 0 6px; font-size: .75rem; color: var(--muted); }
   .footer { display: block; color: var(--muted); font-size: .8rem; padding-top: 12px; padding-bottom: 24px; }
   .install { bottom: 16px; }
 }
+
+/* ----- pull to refresh ----- */
+.ptr { position: fixed; left: 50%; top: calc(var(--bar-h) + env(safe-area-inset-top)); z-index: 20; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--container-high); color: var(--primary); box-shadow: 0 2px 8px rgb(0 0 0 / 25%); pointer-events: none; transition: transform .25s ease, opacity .2s ease; }
+.ptr--active { transition: none; }
+.ptr--spin svg { animation: ptr-spin .7s linear infinite; }
+@keyframes ptr-spin { to { transform: rotate(360deg); } }
+@media (min-width: 720px) { .ptr { display: none; } }
+
+/* modern icons: heavier stroke on the selected tab */
+.nav__link[aria-current="page"] svg { stroke-width: 2.4; }

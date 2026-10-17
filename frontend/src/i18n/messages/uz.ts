@@ -23,6 +23,7 @@ const uz: Messages = {
     mvd: "Rossiya IIV",
     verifyBanner:
       "Maʼlumotlar maʼlumot uchun va yuridik maslahat emas. Harakat qilishdan oldin rasmiy saytlarda tekshiring.",
+    refreshing: "Yangilanmoqda…",
     back: "Orqaga",
     days: "kun",
     today: "bugun",
