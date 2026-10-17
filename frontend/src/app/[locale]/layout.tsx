@@ -11,6 +11,7 @@ import { Ripple } from "@/components/Ripple";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { isLocale, locales } from "@/i18n/config";
 import { getMessages } from "@/i18n/dictionary";
+import { BASE_PATH } from "@/lib/basePath";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -24,10 +25,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: { default: t.app.fullName, template: `%s · ${t.app.name}` },
     description: t.app.tagline,
-    manifest: "/manifest.webmanifest",
+    manifest: `${BASE_PATH}/manifest.webmanifest`,
     applicationName: t.app.name,
     appleWebApp: { capable: true, title: t.app.name, statusBarStyle: "default" },
-    icons: { icon: "/icons/icon.svg", apple: "/icons/apple-touch-icon.png" },
+    icons: { icon: `${BASE_PATH}/icons/icon.svg`, apple: `${BASE_PATH}/icons/apple-touch-icon.png` },
     formatDetection: { telephone: false },
   };
 }

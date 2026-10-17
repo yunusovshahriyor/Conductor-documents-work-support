@@ -16,15 +16,27 @@ PWA и сайт, который помогает мигрантам из Тад�
 cd frontend
 npm install
 npm run dev                    # http://localhost:3000
-npm run build && npm start     # production, включает service worker
+npm run build && npx serve out # статическая сборка (service worker работает только в ней)
 ```
+
+## Публикация на GitHub Pages
+
+Фронтенд собирается как статический сайт (`output: "export"`), см. `.github/workflows/pages.yml`.
+
+1. Влейте ветку в `main` (workflow запускается при push в `main`, можно и вручную: Actions → Run workflow).
+2. В репозитории: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+3. Сайт будет по адресу `https://<пользователь>.github.io/<имя-репозитория>/`
+   (для этого репозитория: https://yunusovshahriyor.github.io/Conductor-documents-work-support/).
+
+Для бесплатного Pages репозиторий должен быть публичным. Язык при заходе на `/` выбирается в браузере
+(`frontend/public/index.html`: cookie → язык устройства → `ru`), так как сервера нет.
 
 ## Что уже есть (этап 1: внешний вид)
 
 - Главная, «Документы» (чек-лист из 5 шагов), «Сроки» (калькулятор), «Работа», «Помощь», «О проекте».
 - Мультиязычность без внешних библиотек: `frontend/src/i18n/messages/{ru,tg,uz,ky}.ts`.
   Тип `Messages` берётся из `ru.ts`, поэтому пропущенный ключ в любом языке — ошибка компиляции.
-- Выбор языка: cookie → `Accept-Language` → `ru` (`frontend/src/middleware.ts`).
+- Выбор языка при первом заходе: cookie → язык устройства → `ru` (`frontend/public/index.html`).
 - PWA: `public/manifest.webmanifest`, `public/sw.js`, `public/offline.html`, иконки в `public/icons/`.
 - Отметки и даты хранятся только в `localStorage` на устройстве, на сервер ничего не отправляется.
 

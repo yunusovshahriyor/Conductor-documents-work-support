@@ -1,8 +1,10 @@
 /* Provodnik service worker: offline shell + runtime caching. Bump VERSION to invalidate caches. */
-const VERSION = "v1";
+const VERSION = "v2";
+// Works under a sub-path (GitHub Pages project sites): derive it from the registration scope.
+const BASE = new URL(self.registration.scope).pathname.replace(/\/$/, "");
 const STATIC_CACHE = `provodnik-static-${VERSION}`;
 const PAGES_CACHE = `provodnik-pages-${VERSION}`;
-const PRECACHE = ["/offline.html", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon.svg"];
+const PRECACHE = ["/offline.html", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon.svg"].map((p) => BASE + p);
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(STATIC_CACHE).then((cache) => cache.addAll(PRECACHE)).then(() => self.skipWaiting()));
@@ -34,13 +36,13 @@ self.addEventListener("fetch", (event) => {
           }
           return response;
         })
-        .catch(async () => (await caches.match(request)) || caches.match("/offline.html")),
+        .catch(async () => (await caches.match(request)) || caches.match(BASE + "/offline.html")),
     );
     return;
   }
 
   // Static assets: stale-while-revalidate.
-  if (url.pathname.startsWith("/_next/static/") || url.pathname.startsWith("/icons/")) {
+  if (url.pathname.startsWith(BASE + "/_next/static/") || url.pathname.startsWith(BASE + "/icons/")) {
     event.respondWith(
       caches.open(STATIC_CACHE).then(async (cache) => {
         const cached = await cache.match(request);
