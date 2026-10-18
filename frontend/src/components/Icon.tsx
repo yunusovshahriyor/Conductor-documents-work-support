@@ -3,15 +3,23 @@ import {
   BriefcaseBusiness,
   CalendarClock,
   Check,
+  BookUser,
   ChevronRight,
+  CircleUser,
   Download,
   FileCheck2,
+  FolderLock,
   House,
   Info,
   Languages,
   LifeBuoy,
+  Lock,
+  NotebookPen,
+  Paperclip,
   Phone,
+  Plus,
   ShieldCheck,
+  Trash2,
   TriangleAlert,
   X,
   type LucideIcon,
@@ -32,7 +40,15 @@ export type IconName =
   | "back"
   | "close"
   | "chevron"
-  | "info";
+  | "info"
+  | "wallet"
+  | "profile"
+  | "contacts"
+  | "journal"
+  | "plus"
+  | "trash"
+  | "lock"
+  | "clip";
 
 const icons: Record<IconName, LucideIcon> = {
   home: House,
@@ -50,6 +66,14 @@ const icons: Record<IconName, LucideIcon> = {
   close: X,
   chevron: ChevronRight,
   info: Info,
+  wallet: FolderLock,
+  profile: CircleUser,
+  contacts: BookUser,
+  journal: NotebookPen,
+  plus: Plus,
+  trash: Trash2,
+  lock: Lock,
+  clip: Paperclip,
 };
 
 export function Icon({ name, size = 24 }: { name: IconName; size?: number }) {

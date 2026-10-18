@@ -7,7 +7,7 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import type { Locale } from "@/i18n/config";
 import type { Messages } from "@/i18n/messages/ru";
 
-const sections = ["documents", "deadlines", "work", "help", "about"] as const;
+const sections = ["documents", "wallet", "profile", "contacts", "journal", "deadlines", "work", "help", "about"] as const;
 
 export function AppBar({ locale, t }: { locale: Locale; t: Messages }) {
   const pathname = usePathname() ?? "";

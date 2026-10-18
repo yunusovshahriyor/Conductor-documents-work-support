@@ -5,26 +5,28 @@ import { useEffect, useState } from "react";
 import { Donut } from "./Donut";
 import { Icon, type IconName } from "./Icon";
 import { diffInDays, formatDate, startOfToday } from "@/lib/dates";
-import { computeDeadlines, emptyDeadlineState, type DeadlineState } from "@/lib/deadlines";
-import { DEADLINES_KEY, DOCS_KEY } from "@/lib/keys";
+import { loadAllDeadlines, type AnyDeadline } from "@/lib/allDeadlines";
+import { DOCS_KEY } from "@/lib/keys";
 import { readJSON } from "@/lib/storage";
 import type { Locale } from "@/i18n/config";
 import type { Messages } from "@/i18n/messages/ru";
 
-const tiles: { slug: string; icon: IconName; key: "deadlines" | "work" | "help"; tone: string }[] = [
-  { slug: "deadlines", icon: "calendar", key: "deadlines", tone: "teal" },
-  { slug: "work", icon: "work", key: "work", tone: "amber" },
-  { slug: "help", icon: "help", key: "help", tone: "rose" },
+const tiles: { slug: string; icon: IconName; title: (t: Messages) => string; text: (t: Messages) => string; tone: string }[] = [
+  { slug: "documents", icon: "documents", title: (t) => t.nav.documents, text: (t) => t.home.modules.documents.text, tone: "teal" },
+  { slug: "contacts", icon: "contacts", title: (t) => t.nav.contacts, text: (t) => t.contactsPage.intro, tone: "indigo" },
+  { slug: "journal", icon: "journal", title: (t) => t.nav.journal, text: (t) => t.journalPage.intro, tone: "rose" },
+  { slug: "work", icon: "work", title: (t) => t.nav.work, text: (t) => t.home.modules.work.text, tone: "amber" },
+  { slug: "about", icon: "info", title: (t) => t.nav.about, text: (t) => t.about.disclaimerTitle, tone: "slate" },
 ];
 
 export function HomeDashboard({ locale, t }: { locale: Locale; t: Messages }) {
   const [done, setDone] = useState<Record<string, boolean>>({});
-  const [dates, setDates] = useState<DeadlineState>(emptyDeadlineState);
+  const [deadlines, setDeadlines] = useState<AnyDeadline[]>([]);
 
   useEffect(() => {
     setDone(readJSON<Record<string, boolean>>(DOCS_KEY, {}));
-    setDates({ ...emptyDeadlineState, ...readJSON<Partial<DeadlineState>>(DEADLINES_KEY, {}) });
-  }, []);
+    setDeadlines(loadAllDeadlines(t));
+  }, [t]);
 
   const steps = t.documents.steps;
   const total = steps.length;
@@ -33,7 +35,6 @@ export function HomeDashboard({ locale, t }: { locale: Locale; t: Messages }) {
   const percent = Math.round((doneCount / total) * 100);
 
   const today = startOfToday();
-  const deadlines = computeDeadlines(dates);
   const upcoming = deadlines.find((d) => diffInDays(d.date, today) >= 0) ?? deadlines[deadlines.length - 1];
   const left = upcoming ? diffInDays(upcoming.date, today) : null;
 
@@ -46,7 +47,7 @@ export function HomeDashboard({ locale, t }: { locale: Locale; t: Messages }) {
           {left !== null && <span className="metric__unit">{t.common.days}</span>}
         </div>
         <span className="metric__hint">
-          {upcoming ? `${t.deadlines[upcoming.id]} · ${formatDate(upcoming.date, locale)}` : t.home.setDates}
+          {upcoming ? `${upcoming.label} · ${formatDate(upcoming.date, locale)}` : t.home.setDates}
         </span>
       </section>
 
@@ -111,18 +112,13 @@ export function HomeDashboard({ locale, t }: { locale: Locale; t: Messages }) {
         <span>{t.home.sectionsTitle}</span>
       </div>
       <div className="tiles">
-        {tiles.map(({ slug, icon, key, tone }) => (
+        {tiles.map(({ slug, icon, title, text, tone }) => (
           <Link key={slug} href={`/${locale}/${slug}`} className={`tile tile--${tone}`}>
             <Icon name={icon} size={26} />
-            <strong>{t.home.modules[key].title}</strong>
-            <span>{t.home.modules[key].text}</span>
+            <strong>{title(t)}</strong>
+            <span>{text(t)}</span>
           </Link>
         ))}
-        <Link href={`/${locale}/about`} className="tile tile--indigo">
-          <Icon name="info" size={26} />
-          <strong>{t.nav.about}</strong>
-          <span>{t.about.disclaimerTitle}</span>
-        </Link>
       </div>
     </>
   );

@@ -6,15 +6,15 @@ import { Icon, type IconName } from "./Icon";
 import type { Locale } from "@/i18n/config";
 import type { Messages } from "@/i18n/messages/ru";
 
-type Item = { slug: string; key: "home" | "documents" | "deadlines" | "work" | "help"; icon: IconName; center?: boolean };
+type Item = { slug: string; key: "home" | "wallet" | "deadlines" | "profile" | "help"; icon: IconName; center?: boolean };
 
 // Help sits in the middle as the raised action button, like the primary action of a native app.
 const items: Item[] = [
   { slug: "", key: "home", icon: "home" },
-  { slug: "documents", key: "documents", icon: "documents" },
+  { slug: "wallet", key: "wallet", icon: "wallet" },
   { slug: "help", key: "help", icon: "help", center: true },
   { slug: "deadlines", key: "deadlines", icon: "calendar" },
-  { slug: "work", key: "work", icon: "work" },
+  { slug: "profile", key: "profile", icon: "profile" },
 ];
 
 export function Nav({ locale, labels, menuLabel }: { locale: Locale; labels: Messages["nav"]; menuLabel: string }) {
