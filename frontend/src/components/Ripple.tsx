@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-const TARGETS = ".btn, .card, .nav__link, .icon-btn, .sheet__item, summary, .check, .radio, .lang__btn, .sos-fab";
+const TARGETS = ".btn, .card, .nav__link, .icon-btn, .sheet__item, summary, .check, .radio, .lang__btn, .tile, .mini, .panel__row";
 
 /** Material-style touch ripple, driven by one document-level listener. */
 export function Ripple() {
