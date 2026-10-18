@@ -29,7 +29,13 @@ export function AppBar({ locale, t }: { locale: Locale; t: Messages }) {
       )}
       <Link href={`/${locale}`} className={`brand${isHome ? "" : " brand--wide-only"}`} aria-label={t.app.fullName}>
         <span className="brand__mark" aria-hidden="true">П</span>
-        <span className="brand__text">{t.app.name}</span>
+        <span className="brand__words">
+          <span className="brand__text">
+            {t.app.name}
+            <i>.</i>
+          </span>
+          <span className="brand__tag">{t.app.tagline}</span>
+        </span>
       </Link>
       {!isHome && <span className="appbar__title">{t.nav[section]}</span>}
       <div className="appbar__end">

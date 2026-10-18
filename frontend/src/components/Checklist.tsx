@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { Icon } from "./Icon";
+import { DOCS_KEY } from "@/lib/keys";
 import { readJSON, removeKey, writeJSON } from "@/lib/storage";
 import type { Messages } from "@/i18n/messages/ru";
 
-const KEY = "provodnik:documents-progress";
+const KEY = DOCS_KEY;
 
 export function Checklist({ t }: { t: Messages["documents"] }) {
   const [done, setDone] = useState<Record<string, boolean>>({});

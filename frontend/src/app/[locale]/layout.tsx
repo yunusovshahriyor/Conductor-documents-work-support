@@ -6,7 +6,6 @@ import { InstallPrompt } from "@/components/InstallPrompt";
 import { AppBar } from "@/components/AppBar";
 import { Nav } from "@/components/Nav";
 import { OfflineBadge } from "@/components/OfflineBadge";
-import { SosButton } from "@/components/SosButton";
 import { PullToRefresh } from "@/components/PullToRefresh";
 import { Ripple } from "@/components/Ripple";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
@@ -39,8 +38,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f8faf8" },
-    { media: "(prefers-color-scheme: dark)", color: "#101413" },
+    { media: "(prefers-color-scheme: light)", color: "#eaf4ee" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e1814" },
   ],
 };
 
@@ -83,7 +82,6 @@ export default async function LocaleLayout({
           installLabel={t.common.installButton}
           dismissLabel={t.common.dismiss}
         />
-        <SosButton label={t.common.callEmergency} />
         <PullToRefresh label={t.common.refreshing} />
         <Ripple />
         <ServiceWorkerRegister />

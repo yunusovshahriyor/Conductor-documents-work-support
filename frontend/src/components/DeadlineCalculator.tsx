@@ -1,18 +1,16 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { addDays, addWorkingDays, diffInDays, formatDate, parseISODate, startOfToday } from "@/lib/dates";
-import { RULES, type CitizenshipGroup } from "@/lib/rules";
+import { diffInDays, formatDate, startOfToday } from "@/lib/dates";
+import { computeDeadlines, emptyDeadlineState } from "@/lib/deadlines";
+import { DEADLINES_KEY } from "@/lib/keys";
 import { readJSON, removeKey, writeJSON } from "@/lib/storage";
 import type { Locale } from "@/i18n/config";
 import type { Messages } from "@/i18n/messages/ru";
 
-const KEY = "provodnik:deadlines";
-
-type State = { group: CitizenshipGroup; entry: string; patent: string; contract: string };
-const empty: State = { group: "other", entry: "", patent: "", contract: "" };
-
-type Row = { label: string; date: Date };
+const KEY = DEADLINES_KEY;
+const empty = emptyDeadlineState;
+type State = typeof empty;
 
 export function DeadlineCalculator({ t, locale, daysLabel }: { t: Messages["deadlines"]; locale: Locale; daysLabel: string }) {
   const [state, setState] = useState<State>(empty);
@@ -31,21 +29,7 @@ export function DeadlineCalculator({ t, locale, daysLabel }: { t: Messages["dead
     setSaved(true);
   };
 
-  const rows = useMemo<Row[]>(() => {
-    const result: Row[] = [];
-    const entry = parseISODate(state.entry);
-    const patent = parseISODate(state.patent);
-    const contract = parseISODate(state.contract);
-    if (entry) {
-      result.push({ label: t.registration, date: addWorkingDays(entry, RULES.registrationWorkingDays) });
-      if (state.group === "other") {
-        result.push({ label: t.stay90, date: addDays(entry, RULES.visaFreeDays - 1) });
-      }
-    }
-    if (patent && state.group === "other") result.push({ label: t.patent, date: patent });
-    if (contract) result.push({ label: t.contract, date: contract });
-    return result.sort((a, b) => a.date.getTime() - b.date.getTime());
-  }, [state, t]);
+  const rows = useMemo(() => computeDeadlines(state).map((d) => ({ label: t[d.id], date: d.date })), [state, t]);
 
   const today = startOfToday();
 
