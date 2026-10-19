@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { diffInDays, formatDate, startOfToday } from "@/lib/dates";
-import { computeDeadlines, emptyDeadlineState } from "@/lib/deadlines";
+import { loadAllDeadlines } from "@/lib/allDeadlines";
+import { emptyDeadlineState } from "@/lib/deadlines";
 import { DEADLINES_KEY } from "@/lib/keys";
 import { readJSON, removeKey, writeJSON } from "@/lib/storage";
 import type { Locale } from "@/i18n/config";
@@ -12,7 +13,7 @@ const KEY = DEADLINES_KEY;
 const empty = emptyDeadlineState;
 type State = typeof empty;
 
-export function DeadlineCalculator({ t, locale, daysLabel }: { t: Messages["deadlines"]; locale: Locale; daysLabel: string }) {
+export function DeadlineCalculator({ t, messages, locale, daysLabel }: { t: Messages["deadlines"]; messages: Messages; locale: Locale; daysLabel: string }) {
   const [state, setState] = useState<State>(empty);
   const [saved, setSaved] = useState(false);
 
@@ -29,7 +30,9 @@ export function DeadlineCalculator({ t, locale, daysLabel }: { t: Messages["dead
     setSaved(true);
   };
 
-  const rows = useMemo(() => computeDeadlines(state).map((d) => ({ label: t[d.id], date: d.date })), [state, t]);
+  // Includes profile and wallet dates too; storage was just updated by `update`, so reading it here stays in sync.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const rows = useMemo(() => loadAllDeadlines(messages).map((d) => ({ label: d.label, date: d.date })), [state, messages]);
 
   const today = startOfToday();
 

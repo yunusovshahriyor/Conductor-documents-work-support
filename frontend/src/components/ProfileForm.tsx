@@ -92,6 +92,12 @@ export function ProfileForm({ t, locale }: { t: Messages; locale: Locale }) {
           <span>{p.registrationUntil}</span>
           <input type="date" value={profile.registrationUntil} onChange={(e) => setP({ registrationUntil: e.target.value })} />
         </label>
+        {profile.status === "patent" && (
+          <label className="field">
+            <span>{p.patentIssued}</span>
+            <input type="date" value={profile.patentIssued} onChange={(e) => setP({ patentIssued: e.target.value })} />
+          </label>
+        )}
         {!eaeu && (
           <label className="field">
             <span>{p.patentUntil}</span>

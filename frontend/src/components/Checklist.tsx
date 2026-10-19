@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { Icon } from "./Icon";
-import { DOCS_KEY } from "@/lib/keys";
 import { readJSON, removeKey, writeJSON } from "@/lib/storage";
 import type { Messages } from "@/i18n/messages/ru";
 
-const KEY = DOCS_KEY;
+type Step = { title: string; text: string; items: string[] };
+type Labels = Pick<Messages["documents"], "progress" | "of" | "reset" | "itemsTitle">;
 
-export function Checklist({ t }: { t: Messages["documents"] }) {
+export function Checklist({ steps, labels: t, storageKey: KEY }: { steps: Step[]; labels: Labels; storageKey: string }) {
   const [done, setDone] = useState<Record<string, boolean>>({});
   const [ready, setReady] = useState(false);
 
@@ -30,8 +30,8 @@ export function Checklist({ t }: { t: Messages["documents"] }) {
     setDone({});
   };
 
-  const total = t.steps.length;
-  const count = t.steps.filter((_, i) => done[`step-${i}`]).length;
+  const total = steps.length;
+  const count = steps.filter((_, i) => done[`step-${i}`]).length;
 
   return (
     <div>
@@ -45,7 +45,7 @@ export function Checklist({ t }: { t: Messages["documents"] }) {
       </div>
 
       <ol className="steps">
-        {t.steps.map((step, i) => {
+        {steps.map((step, i) => {
           const id = `step-${i}`;
           const checked = !!done[id];
           return (

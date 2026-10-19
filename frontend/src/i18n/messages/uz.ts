@@ -132,6 +132,9 @@ const uz: Messages = {
     ],
   },
   deadlines: {
+    patentApply: "Patentga ariza topshirish (kirgandan 30 kun)",
+    patentNotify: "IIVga mehnat faoliyati haqida xabarnoma (patent berilgandan 2 oy)",
+    patentRenew: "Patentni qayta rasmiylashtirish hujjatlari (tugashiga 10 kun qolganda)",
     mine: "Mening muddatlarim",
     mineHint: "Profil va hujjatlardan",
     none: "Hozircha muddat yoʻq. Profilni toʻldiring yoki hujjat qoʻshing.",
@@ -243,6 +246,7 @@ const uz: Messages = {
     versionLabel: "Versiya",
   },
   profile: {
+    patentIssued: "Patent berilgan sana",
     title: "Mening profilim",
     intro: "Bir marta toʻldiring — ilova muddatlarni aynan siz uchun hisoblaydi. Maʼlumot faqat shu telefonda qoladi.",
     name: "Ism",
@@ -338,6 +342,135 @@ const uz: Messages = {
     text: "Nima boʻldi",
     empty: "Yozuvlar yoʻq.",
     deleteConfirm: "Yozuv oʻchirilsinmi?",
+  },
+  patent: {
+    title: "Ish uchun patent",
+    intro: "Maqsadingiz — «Patent bilan ish». Quyida rasmiylashtirish tartibi qadamma-qadam, muddatlar va jarimalar keltirilgan.",
+    tabPatent: "Patent",
+    tabGeneral: "Umumiy qadamlar",
+    costTitle: "Narxi",
+    cost: "2026-yil 1-yanvardan Sverdlovsk viloyati va Yekaterinburgda patent 9 500 rubl turadi (amal qilish muddatining har oyi uchun NDFLning qatʼiy avans toʻlovi). Boshqa hududlarda summa boshqacha — oʻz hududingiz uchun aniqlang.",
+    source: "Manba: kislorodnaya8.ru, «RFda ish uchun patent — 2026» sahifasi (saqlangan nusxa). Muddatlar, narx va hujjatlar roʻyxati oʻzgaradi va hududga bogʻliq — topshirishdan oldin IIV va Gosuslugida tekshiring.",
+    steps: [
+      {
+        title: "Kirish va migratsiya kartasi",
+        text: "Migratsiya kartasida kirish maqsadi albatta «ish» deb koʻrsatilishi kerak. Maqsad boshqa boʻlsa — patent berilmaydi.",
+        items: [
+          "Kirish maqsadi «ish» boʻlgan migratsiya kartasi",
+          "Ariza topshirilgan kundan kamida 1 yil amal qiladigan pasport",
+          "Kartani va roʻyxatni turish muddati tugaguncha saqlang",
+        ],
+      },
+      {
+        title: "Migratsion hisob va INN",
+        text: "Turgan joyingiz boʻyicha migratsion hisobga turing — «Moi dokumenti» MFTsida yoki «Gosuslugi» ilovasi orqali.",
+        items: [
+          "Turgan joy boʻyicha migratsion hisob (roʻyxat)",
+          "INN — «Moi dokumenti» MFTsida olish mumkin",
+          "Migratsiya kartasi va roʻyxat nusxalari",
+        ],
+      },
+      {
+        title: "Ariza — 30 kun ichida",
+        text: "Kirgan kundan 30 kun ichida IIVning migratsiya masalalari boʻlimiga patent uchun ariza topshirishingiz kerak.",
+        items: [
+          "Patent berish haqidagi ariza blankasi — IIVda yoki yuklab olish mumkin",
+          "Kechikish: 10 000 dan 15 000 rublgacha jarima (IIVda toʻlanadi, keyin rasmiylashtirishni davom ettirish mumkin)",
+          "Patent oʻz vaqtida rasmiylashtirilmasa, toʻlanmasa yoki muddati tugasa — RFni tark etish kerak; keyingi kirishda rasmiylashtirish qaytadan boshlanadi",
+        ],
+      },
+      {
+        title: "Tibbiy koʻrik",
+        text: "Rossiya klinikasida tekshiruvdan oʻting. Xavfli kasallik aniqlansa, patent rasmiylashtirilmaydi yoki bekor qilinadi.",
+        items: [
+          "Giyohvandlik yoʻqligi haqida maʼlumotnoma",
+          "Kimyoviy-toksikologik tekshiruv natijalari",
+          "Xavfli infeksiyalar yoʻqligi haqida maʼlumotnoma",
+          "OIV yoʻqligi haqida sertifikat",
+          "Oʻzingiz bilan oling: pasport (asl nusxa), pasportning notarial tarjimasi, roʻyxat, migratsiya kartasi",
+        ],
+      },
+      {
+        title: "Rus tili, tarix, qonunchilik",
+        text: "Quyidagi hujjatlardan biri kerak:",
+        items: [
+          "Imtihondan oʻtganlik sertifikati yoki rus tilini bilish boʻyicha amaldagi sertifikat",
+          "1991-yilgacha SSSRda berilgan taʼlim hujjati",
+          "1991-yildan keyin RFda berilgan taʼlim hujjati",
+          "Sertifikat yoʻq — test topshiriqlari boʻyicha tayyorlaning va imtihon topshiring",
+        ],
+      },
+      {
+        title: "Qolgan hujjatlar",
+        text: "Topshirish uchun toʻliq toʻplamni yigʻing.",
+        items: [
+          "Pasportning notarial tarjimasi",
+          "Ixtiyoriy tibbiy sugʻurta polisi (DMS)",
+          "Patent berish uchun davlat boji",
+          "30×40 mm surat: toʻgʻridan-toʻgʻri, bosh kiyimsiz (diniy sabablar bundan mustasno), retushsiz",
+          "Toʻldirilgan patent berish haqidagi ariza",
+        ],
+      },
+      {
+        title: "NDFL toʻlovi va patent olish",
+        text: "Birinchi oy uchun NDFLning qatʼiy avans toʻlovini toʻlang. Toʻlov tasdiqlangach patent beriladi.",
+        items: [
+          "Toʻlov hujjatida: patent egasining INNi, toʻgʻri KBK va OKTMO",
+          "Toʻlov topshirigʻida faqat bitta shaxs — patent egasi koʻrsatilgan",
+          "Barcha toʻlov kvitansiyalarini saqlang",
+        ],
+      },
+      {
+        title: "Patent olgandan keyin",
+        text: "Patent NDFL toʻlangan oylar soniga qadar amal qiladi: har bir toʻlangan oy uni bir oyga uzaytiradi, oldindan toʻlash mumkin.",
+        items: [
+          "Patent berilgandan keyin 2 oy ichida IIVga mehnat shartnomasi yoki fuqarolik-huquqiy shartnoma nusxasi bilan mehnat faoliyati haqida xabarnoma yuboring (shartnoma ogʻzaki boʻlsa — maʼlumotni xabarnomada yozing)",
+          "Xabarnomasiz patent bekor qilinadi",
+          "Xabarnoma patent bergan IIV organiga topshiriladi",
+          "RFdan chiqib, yoʻqligingiz vaqti uchun toʻlamagan boʻlsangiz — qaytganingizda yangi patent rasmiylashtiriladi",
+        ],
+      },
+      {
+        title: "Qayerda ishlash mumkin",
+        text: "Patent faqat berilgan hududda amal qiladi. RFning boshqa hududida ishlash mumkin emas.",
+        items: [
+          "Boshqa hududda ish kerak boʻlsa — alohida patent rasmiylashtiriladi",
+          "Patent yuridik shaxslar, yakka tartibdagi tadbirkorlar va jismoniy shaxslarda ishlash huquqini beradi (alohida istisnolardan tashqari)",
+        ],
+      },
+      {
+        title: "Uzaytirish (qayta rasmiylashtirish)",
+        text: "Hujjatlarni amaldagi patent tugashiga kamida 10 kun qolganda topshiring.",
+        items: [
+          "Oldingi oylar uchun NDFL toʻlovi tasdigʻi",
+          "Kamida 1 yil amal qiladigan pasport",
+          "Ish beruvchining iltimosnomasi",
+          "Mehnat yoki fuqarolik-huquqiy shartnoma",
+          "DMS va tibbiy hujjatlar",
+          "Patentni qayta rasmiylashtirish haqidagi ariza",
+        ],
+      },
+    ],
+    refusalTitle: "Patent berishdan bosh tortish sabablari",
+    refusal: [
+      "Kirish maqsadi notoʻgʻri koʻrsatilgan",
+      "Daktiloskopiya va suratga olishdan bosh tortish",
+      "Soxta hujjatlar",
+      "Sudlanganlik",
+      "Xavfli kasalliklar",
+      "Pasport muddati tugagan",
+      "Ilgari migratsiya qoidalari buzilgan",
+    ],
+    refusalTip: "Topshirishdan oldin RFga kirish taqiqi yoʻqligini tekshirgan maʼqul.",
+    finesTitle: "Jarimalar va oqibatlar",
+    fines: [
+      "Hujjat topshirishda kechikish (30 kun): jarima 10 000–15 000 rubl",
+      "Ish haqida xabarnoma topshirilmasa: patent bekor qilinadi",
+      "NDFL oʻz vaqtida toʻlanmasa: patent amal qilishdan toʻxtaydi",
+      "Soxta roʻyxat: berishdan bosh tortiladi va qayta topshirish faqat bir yildan keyin",
+      "Patent muddati tugasa: RFdan chiqib, yangi patent uchun qaytadan kirish kerak",
+    ],
+    closing: "Patent — Rossiyada rasmiy ishlash uchun asosiy hujjatingiz. Muddatlarga rioya qiling, hujjatlarni oldindan tayyorlang va barcha kvitansiyalarni saqlang.",
   },
   offline: {
     title: "Internet yoʻq",

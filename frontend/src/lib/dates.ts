@@ -60,3 +60,11 @@ export function formatDate(date: Date, locale: string): string {
     return toISODate(date);
   }
 }
+
+/** Adds calendar months, clamping to the last day of a shorter month (31 Jan + 1 month = 28/29 Feb). */
+export function addMonths(date: Date, months: number): Date {
+  const next = new Date(date.getFullYear(), date.getMonth() + months, 1);
+  const lastDay = new Date(next.getFullYear(), next.getMonth() + 1, 0).getDate();
+  next.setDate(Math.min(date.getDate(), lastDay));
+  return next;
+}

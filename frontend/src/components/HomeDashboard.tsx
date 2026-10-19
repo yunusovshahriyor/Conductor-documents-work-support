@@ -6,7 +6,8 @@ import { Donut } from "./Donut";
 import { Icon, type IconName } from "./Icon";
 import { diffInDays, formatDate, startOfToday } from "@/lib/dates";
 import { loadAllDeadlines, type AnyDeadline } from "@/lib/allDeadlines";
-import { DOCS_KEY } from "@/lib/keys";
+import { DOCS_KEY, PATENT_KEY, PROFILE_KEY } from "@/lib/keys";
+import { emptyProfile, type Profile } from "@/lib/profile";
 import { readJSON } from "@/lib/storage";
 import type { Locale } from "@/i18n/config";
 import type { Messages } from "@/i18n/messages/ru";
@@ -23,12 +24,16 @@ export function HomeDashboard({ locale, t }: { locale: Locale; t: Messages }) {
   const [done, setDone] = useState<Record<string, boolean>>({});
   const [deadlines, setDeadlines] = useState<AnyDeadline[]>([]);
 
+  const [patentMode, setPatentMode] = useState(false);
+
   useEffect(() => {
-    setDone(readJSON<Record<string, boolean>>(DOCS_KEY, {}));
+    const isPatent = { ...emptyProfile, ...readJSON<Partial<Profile>>(PROFILE_KEY, {}) }.status === "patent";
+    setPatentMode(isPatent);
+    setDone(readJSON<Record<string, boolean>>(isPatent ? PATENT_KEY : DOCS_KEY, {}));
     setDeadlines(loadAllDeadlines(t));
   }, [t]);
 
-  const steps = t.documents.steps;
+  const steps = patentMode ? t.patent.steps : t.documents.steps;
   const total = steps.length;
   const doneCount = steps.filter((_, i) => done[`step-${i}`]).length;
   const nextIndex = steps.findIndex((_, i) => !done[`step-${i}`]);
