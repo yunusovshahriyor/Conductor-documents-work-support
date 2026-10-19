@@ -5,3 +5,4 @@ export const WALLET_KEY = "provodnik:wallet";
 export const CONTACTS_KEY = "provodnik:contacts";
 export const JOURNAL_KEY = "provodnik:journal";
 export const VAULT_META_KEY = "provodnik:vault-meta";
+export const PATENT_KEY = "provodnik:patent-progress";

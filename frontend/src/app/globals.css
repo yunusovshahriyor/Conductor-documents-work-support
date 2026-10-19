@@ -401,3 +401,8 @@ legend { padding: 0 6px; font-size: .8rem; color: var(--muted); }
 .notice__body strong { font-weight: 600; }
 .notice__body span { color: var(--muted); font-size: .85rem; }
 .field input, .field select, .field textarea { width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; }
+
+/* segmented control (tabs) */
+.seg { display: flex; gap: 4px; padding: 5px; margin-bottom: 16px; border-radius: 22px; background: var(--container); box-shadow: var(--inset); }
+.seg__btn { flex: 1; min-height: 44px; padding: 0 12px; border: 0; border-radius: 18px; background: transparent; color: var(--muted); font: inherit; font-weight: 600; cursor: pointer; transition: background .15s, color .15s; }
+.seg__btn[aria-selected="true"] { background: var(--card); box-shadow: var(--shadow-sm); color: var(--primary); }

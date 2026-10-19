@@ -7,9 +7,10 @@ export type Profile = {
   employer: string;
   address: string;
   registrationUntil: string;
+  patentIssued: string;
 };
 
-export const emptyProfile: Profile = { name: "", citizenship: "", status: "", employer: "", address: "", registrationUntil: "" };
+export const emptyProfile: Profile = { name: "", citizenship: "", status: "", employer: "", address: "", registrationUntil: "", patentIssued: "" };
 
 export const countryCodes = ["tj", "uz", "kg", "kz", "am", "by", "other"] as const;
 export const statusCodes = ["patent", "eaeu", "study", "family", "stay", "other"] as const;

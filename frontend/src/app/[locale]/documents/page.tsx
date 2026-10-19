@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { Checklist } from "@/components/Checklist";
+import { DocumentsView } from "@/components/DocumentsView";
 import { OfficialLinks } from "@/components/OfficialLinks";
 import { isLocale } from "@/i18n/config";
 import { getMessages } from "@/i18n/dictionary";
@@ -16,8 +16,7 @@ export default async function DocumentsPage({ params }: { params: Promise<{ loca
   return (
     <>
       <h1>{t.documents.title}</h1>
-      <p className="lead">{t.documents.intro}</p>
-      <Checklist t={t.documents} />
+      <DocumentsView t={t} />
       <OfficialLinks t={t.common} />
     </>
   );
