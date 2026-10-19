@@ -1,5 +1,6 @@
 import {
   ArrowLeft,
+  Bell,
   BriefcaseBusiness,
   CalendarClock,
   Check,
@@ -48,7 +49,8 @@ export type IconName =
   | "plus"
   | "trash"
   | "lock"
-  | "clip";
+  | "clip"
+  | "bell";
 
 const icons: Record<IconName, LucideIcon> = {
   home: House,
@@ -74,6 +76,7 @@ const icons: Record<IconName, LucideIcon> = {
   trash: Trash2,
   lock: Lock,
   clip: Paperclip,
+  bell: Bell,
 };
 
 export function Icon({ name, size = 24 }: { name: IconName; size?: number }) {

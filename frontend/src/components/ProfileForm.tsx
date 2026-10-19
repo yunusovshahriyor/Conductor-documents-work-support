@@ -41,8 +41,22 @@ export function ProfileForm({ t, locale }: { t: Messages; locale: Locale }) {
 
   const eaeu = dates.group === "eaeu";
 
+  const initial = (profile.name.trim()[0] ?? "").toUpperCase();
+  const subtitle = [profile.citizenship && p.countries[profile.citizenship as keyof typeof p.countries], profile.status && p.statuses[profile.status as keyof typeof p.statuses]]
+    .filter(Boolean)
+    .join(" · ");
+
   return (
     <div>
+      <div className="me">
+        <span className="me__avatar" aria-hidden="true">
+          {initial || <Icon name="profile" size={30} />}
+        </span>
+        <span className="me__body">
+          <strong>{profile.name || p.title}</strong>
+          <span>{subtitle || p.select}</span>
+        </span>
+      </div>
       <form className="form" onSubmit={(e) => e.preventDefault()}>
         <label className="field">
           <span>{p.name}</span>
@@ -97,7 +111,16 @@ export function ProfileForm({ t, locale }: { t: Messages; locale: Locale }) {
           <input type="text" value={profile.address} autoComplete="street-address" onChange={(e) => setP({ address: e.target.value })} />
         </label>
       </form>
-      {saved && <p className="muted">{p.saved}</p>}
+      {saved && (
+        <div className="notice" role="status">
+          <span className="notice__icon">
+            <Icon name="check" size={20} />
+          </span>
+          <span className="notice__body">
+            <strong>{p.saved}</strong>
+          </span>
+        </div>
+      )}
 
       <div className="section-head">
         <span>{p.shortcuts}</span>
