@@ -32,7 +32,6 @@ export function AppBar({ locale, t }: { locale: Locale; t: Messages }) {
         <span className="brand__words">
           <span className="brand__text">
             {t.app.name}
-            <i>.</i>
           </span>
           <span className="brand__tag">{t.app.tagline}</span>
         </span>
